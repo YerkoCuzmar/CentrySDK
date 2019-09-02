@@ -198,7 +198,6 @@ class Centry:
     # @see https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/
     def client_credentials(self, scope=None):
         s = {} if (scope is None) or (scope.strip() == '') else {'scope': scope.strip()}
-        print(f"s= {s}")
         return self.__grant('client_credentials', s)
 
     # Endpoints de la API de Centry que no requieren de un access_token.
@@ -213,7 +212,6 @@ class Centry:
         response = self.post('oauth/token', {}, payload)
         assert (response.status_code == requests.codes.ok), response.json()
         body = response.json()
-        print(body)
         if 'access_token' in body.keys():
             self.access_token = body['access_token']
         if 'refresh_token' in body.keys():
